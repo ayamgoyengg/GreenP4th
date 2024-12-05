@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenPath | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css.css" />
+
+    <link rel="icon" href="img/LOGO.png" />
+    <style>
+       #map { height: 100vh; }
+        .province-popup { 
+            min-width: 250px; 
+            text-align: center;
+        }
+  </style>
+  </head>
+  <body>
+    <!-- NAViGATE -->
+    <nav class="navbar">
+      <img class="LOGO" src="img/LOGO2.png" />
+      <div class="nav-group">
+        <button class="mobile-menu-toggle">&#9776;</button>
+        <div class="nav-links">
+          <a href="#home"><button>Home</button></a>
+          <a href="#about"><button>About</button></a>
+          <a href="#product"><button>Product</button></a>
+          <a href="#news"><button>Pages</button></a>
+          <a href="#contact"><button>Contact Us</button></a>
+          <button onclick="scrollToElement('#contribute')"
+            class="donate-btn">Donate</button>
+          <button onclick="scrollToElement('#monitor')"
+            class="monitor-btn">Monitor Location</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HEROPAGE -->
+    <section class="Parallax">
+      <img src="hill1.png" id="hill1" />
+      <img src="hill2.png" id="hill2" />
+      <img src="hill3.png" id="hill3" />x
+      <img src="hill4.png" id="hill4" />
+      <img src="hill5.png" id="hill5" />
+      <img src="tree.png" id="tree" />
+      <img src="leaf.png" id="leaf" />
+      <div class="hero-content">
+        <div id="home" class="intro-text px-20">
+          <h2 id="text"
+            class="intro-text-h2 transform -translate-x-8 transition-all duration-700 scroll-left">Walking
+            the Path to a Greener Planet</h2>
+          <p id="textp" class="intro-text-p">
+            "Bunga mekar di tepi kali, <br />Harumnya semerbak di pagi hari.
+            <br />Mari jaga alam kita ini, <br />Agar bumi lestari sepanjang
+            hari."
+          </p>
+        </div>
+        <div class="hero-btn">
+          <button class="monitor-btn2">Monitor Your Location</button>
+        </div>
+      </div>
+      <img src="plant.png" id="plant" />
+    </section>
+
+    <!-- MAIN -->
+    <div class="main-container">
+      <section class="about-section">
+        <div class="section-number" id="about">01 — About Us</div>
+        <h1 class="sliding-title">creating sustainable future</h1>
+        <h2 class="section-title">Who We Are</h2>
+        <div class="about-details">
+          <div class="about-text">
+            <p>We are a
+              <span class="highlight-text">dedicated team of environmental
+                enthusiasts and experts</span>
+              committed to making environmental awareness and action accessible
+              to everyone. Our journey began with a vision to connect
+              communities with their local environment and empower them to make
+              sustainable choices.</p>
+            <p>Through our innovative platform, we provide services including
+              real-time environmental monitoring, a curated directory of
+              eco-friendly products, support for green initiatives, and an
+              environmental news hub. Our team includes environmental
+              scientists, conservation experts, and sustainability advocates who
+              work together to create meaningful environmental impact.</p>
+            <div class="stats-grid">
+              <div class="stat-item" style="--delay: 1">
+                <div class="stat-number" data-count="50">0</div>
+                <p>Cities Monitored</p>
+              </div>
+              <div class="stat-item" style="--delay: 2">
+                <div class="stat-number" data-count="1000">0</div>
+                <p>Trees Planted</p>
+              </div>
+              <div class="stat-item" style="--delay: 3">
+                <div class="stat-number" data-count="2500">0</div>
+                <p>Active Users</p>
+              </div>
+              <div class="stat-item" style="--delay: 4">
+                <div class="stat-number" data-count="500">0</div>
+                <p>Eco Projects Funded</p>
+              </div>
+            </div>
+          </div>
+          <div class="about-image">
+            <img
+              src="https://storage.googleapis.com/a1aa/image/eL5tzfM2Jmk2X0yBRZExS6BHMgmLdDAMTLXRgEJkIKBTvOyTA.jpg"
+              alt="Environmental Impact" />
+          </div>
+        </div>
+      </section>
+      <section class="about-section">
+        <div class="flex flex-row gap-10">
+          <div id="sidebar"
+            class="w-1/4 p-6 bg-white shadow-lg overflow-y-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Province
+              Monitoring</h2>
+
+            <div id="provinceInfo" class="text-sm">
+              <div class="bg-blue-100 p-4 rounded-lg">
+                <h3 class="font-bold text-blue-800 mb-2">National Monitoring
+                  System</h3>
+                <p class="text-blue-600">Select a province on the map to view
+                  specific details and current status.</p>
+              </div>
+            </div>
+
+            <div id="statusSummary" class="mt-6">
+              <h4 class="text-xl font-semibold mb-3">Status Summary</h4>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <span class="w-3 h-3 bg-green-500 mr-2 rounded-full"></span>
+                  <span>Normal: 24 Provinces</span>
+                </div>
+                <div class="flex items-center">
+                  <span class="w-3 h-3 bg-yellow-500 mr-2 rounded-full"></span>
+                  <span>Attention: 8 Provinces</span>
+                </div>
+                <div class="flex items-center">
+                  <span class="w-3 h-3 bg-red-500 mr-2 rounded-full"></span>
+                  <span>Critical: 2 Provinces</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="navigationControls" class="mt-6">
+              <h4 class="text-xl font-semibold mb-3">Map Navigation</h4>
+              <div class="space-y-2">
+                <button id="resetViewBtn"
+                  class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition">
+                  Reset View
+                </button>
+                <div class="flex justify-between">
+                  <button id="zoomInBtn"
+                    class="w-1/2 mr-1 bg-green-500 text-white p-2 rounded hover:bg-green-600 transition">
+                    Zoom In
+                  </button>
+                  <button id="zoomOutBtn"
+                    class="w-1/2 ml-1 bg-red-500 text-white p-2 rounded hover:bg-red-600 transition">
+                    Zoom Out
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="map" class="w-3/4 h-screen"></div>
+        </div>
+      </section>
+      <div class="announcement-banner">
+        <div class="banner-text">
+          Find Our Special Features Right Now!&nbsp;Find Our Special Features
+          Right Now!&nbsp;Find Our Special Features Right Now!&nbsp;Find Our
+          Special Features Right Now!
+        </div>
+      </div>
+      <section class="offer-section">
+        <h2 class="section-title">What We Offer</h2>
+        <div class="grid">
+          <!-- Card 1 -->
+          <div class="card rounded-xl" data-url="#monitor">
+            <div
+              class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+              style="
+                background-image: url('https://storage.googleapis.com/a1aa/image/pmQU2baYVlZIAllMqNYc6ZX4COABuhVaaDwWmN669Mzwhj8E.jpg');
+              ">
+              <div
+                class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+            </div>
+            <div
+              class="relative h-full p-6 flex flex-col items-center justify-center text-white">
+              <div
+                class="icon mb-4 p-4 rounded-full bg-white/10 backdrop-blur-sm transition-all duration-300">
+                <i class="bi bi-clipboard-data"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-center">Environmental
+                Monitoring</h3>
+              <p
+                class="description text-sm text-center opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                Real-time monitoring of environmental conditions in your area,
+                including air quality, water quality, and green space coverage.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card rounded-xl" data-url="#product">
+            <div
+              class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+              style="
+                background-image: url('https://storage.googleapis.com/a1aa/image/q8J1VqzIH9YGPBdQFL6lrMqQcSFC2zJwZnJBNDluYkmmlj8E.jpg');
+              ">
+              <div
+                class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+            </div>
+            <div
+              class="relative h-full p-6 flex flex-col items-center justify-center text-white">
+              <div
+                class="icon mb-4 p-4 rounded-full bg-white/10 backdrop-blur-sm transition-all duration-300">
+                <i class="bi bi-recycle"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-center">Eco-Product
+                Directory</h3>
+              <p
+                class="description text-sm text-center opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                Carefully curated recommendations for sustainable and recycled
+                products for environmentally conscious purchasing.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card rounded-xl" data-url="#contribute">
+            <div
+              class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+              style="
+                background-image: url('https://storage.googleapis.com/a1aa/image/v57CNOgft2USBCC39pxyJmgFwwbnckOu9o2VRcIOlwX8QH5JA.jpg');
+              ">
+              <div
+                class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+            </div>
+            <div
+              class="relative h-full p-6 flex flex-col items-center justify-center text-white">
+              <div
+                class="icon mb-4 p-4 rounded-full bg-white/10 backdrop-blur-sm transition-all duration-300">
+                <i class="bi bi-heart-fill"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-center">Green Initiative
+                Support</h3>
+              <p
+                class="description text-sm text-center opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                A transparent platform for supporting and donating to local
+                environmental projects, with regular updates on project impacts.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="card rounded-xl" data-url="#news">
+            <div
+              class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+              style="
+                background-image: url('https://storage.googleapis.com/a1aa/image/Esde13JUWq31EqD2H7yGqhuLTlkoJIo3s6KIJSxPianDPH5JA.jpg');
+              ">
+              <div
+                class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+            </div>
+            <div
+              class="relative h-full p-6 flex flex-col items-center justify-center text-white">
+              <div
+                class="icon mb-4 p-4 rounded-full bg-white/10 backdrop-blur-sm transition-all duration-300">
+                <i class="bi bi-newspaper"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-center">Environmental News
+                Hub</h3>
+              <p
+                class="description text-sm text-center opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                Stay updated with the latest environmental news, success
+                stories, and developments in sustainability.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="product-section" id="product">
+        <div>
+          <div class="product-background">
+            <div class="circle-1"></div>
+            <div class="circle-2"></div>
+          </div>
+          <div class="section-number2" id="about">02 — Our Product</div>
+          <div class="product-details">
+            <h1 class="section-title2">FIND OUR<br />BEST
+              SELLING<br />PRODUCT</h1>
+            <p class="product-text">
+              Carefully curated recommendations for sustainable and recycled
+              products for environmentally conscious purchasing.
+            </p>
+            <a href="produk.html" class="product-btn">View All Product</a>
+          </div>
+        </div>
+        <div class="frame smartphone-design">
+          <img
+            src="img/smartphone.png"
+            alt="Smartphone Frame"
+            class="background"
+            draggable="false" />
+          <div class="screen">
+            <div class="header">
+              <i class="bi bi-list"></i>
+              <h2>Best Selling</h2>
+              <i class="bi bi-cart"></i>
+            </div>
+
+            <div
+              class="product-slider"
+              onclick="window.location.href='link_tujuan.html'">
+              <div class="slide-container">
+                <div class="product-slide">
+                  <div class="product-card">
+                    <div class="product-image">
+                      <img
+                        src="https://i.etsystatic.com/9266013/r/il/4f1ca6/6455195475/il_794xN.6455195475_kzmc.jpg" />
+                    </div>
+                    <h3>Cassette wallets</h3>
+                    <p>Rp 411,207</p>
+                  </div>
+                </div>
+                <div
+                  class="product-slide"
+                  onclick="window.location.href='link_tujuan.html'">
+                  <a href="link_tujuan.html" class="product-link"></a>
+                  <div class="product-card">
+                    <div class="product-image">
+                      <img
+                        src="https://i.etsystatic.com/33744813/r/il/bca5b2/3577020760/il_794xN.3577020760_of1p.jpg" />
+                    </div>
+                    <h3>Recycled Shoes</h3>
+                    <p>Rp 784,483</p>
+                  </div>
+                </div>
+                <div
+                  class="product-slide"
+                  onclick="window.location.href='link_tujuan.html'">
+                  <a href="link_tujuan.html" class="product-link"></a>
+                  <div class="product-card">
+                    <div class="product-image">
+                      <img
+                        src="https://i.etsystatic.com/51333702/r/il/36204c/6369159878/il_794xN.6369159878_p2eu.jpg" />
+                    </div>
+                    <h3>A5 Lined Notebook</h3>
+                    <p>Rp 447,205</p>
+                  </div>
+                </div>
+                <div
+                  class="product-slide"
+                  onclick="window.location.href='link_tujuan.html'">
+                  <a href="link_tujuan.html" class="product-link"></a>
+                  <div class="product-card">
+                    <div class="product-image">
+                      <img
+                        src="https://i.etsystatic.com/16694996/r/il/ed28f6/5524348202/il_794xN.5524348202_gi0z.jpg" />
+                    </div>
+                    <h3>Recycled backpack</h3>
+                    <p>Rp 581,897</p>
+                  </div>
+                </div>
+                <div
+                  class="product-slide"
+                  onclick="window.location.href='link_tujuan.html'">
+                  <a href="link_tujuan.html" class="product-link"></a>
+                  <div class="product-card">
+                    <div class="product-image">
+                      <img
+                        src="https://i.etsystatic.com/5528288/r/il/75b3a2/3266424522/il_794xN.3266424522_li3u.jpg" />
+                    </div>
+                    <h3>Recycle Army Bag </h3>
+                    <p>Rp 4,499,138+</p>
+                  </div>
+                </div>
+                <div
+                  class="product-slide"
+                  onclick="window.location.href='link_tujuan.html'">
+                  <a href="link_tujuan.html" class="product-link"></a>
+                  <div class="product-card">
+                    <div class="product-image">
+                      <img
+                        src="https://i.etsystatic.com/9054490/r/il/b2cef1/4538580645/il_794xN.4538580645_drqj.jpg" />
+                    </div>
+                    <h3>Recycled Ring</h3>
+                    <p>Rp 793,103</p>
+                  </div>
+                </div>
+                <div
+                  class="product-slide"
+                  onclick="window.location.href='link_tujuan.html'">
+                  <a href="link_tujuan.html" class="product-link"></a>
+                  <div class="product-card">
+                    <div class="product-image">
+                      <img
+                        src="https://i.etsystatic.com/19887624/r/il/253043/6496258173/il_794xN.6496258173_2ys1.jpg" />
+                    </div>
+                    <h3>Recycled Photo Frame</h3>
+                    <p>Rp 247,619+</p>
+                  </div>
+                </div>
+                <div
+                  class="product-slide"
+                  onclick="window.location.href='link_tujuan.html'">
+                  <a href="link_tujuan.html" class="product-link"></a>
+                  <div class="product-card">
+                    <div class="product-image">
+                      <img
+                        src="https://i.etsystatic.com/39780573/r/il/7bdfa3/4613787838/il_794xN.4613787838_n5e5.jpg" />
+                    </div>
+                    <h3>Handmade pouch</h3>
+                    <p>Rp 295,749</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-nav">
+              <button class="slider-btn prev-btn">
+                <i class="bi bi-arrow-left-short"></i>
+              </button>
+              <button class="slider-btn next-btn">
+                <i class="bi bi-arrow-right-short"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="news-section" id="news">
+        <div class="section-number2" id="news">03 — Latest News</div>
+        <h1 class="section-title2">Unlimited Knowledge, <br />One News at a
+          Time</h1>
+        <h2>Trending Now</h2>
+        <hr class="hr1" />
+        <div>
+          <div class="grid">
+            <!-- Card 1 -->
+            <div
+              class="card"
+              data-url="https://sport.detik.com/sport-lain/d-7640708/pertamina-eco-runfest-segera-digelar-bawa-kebermanfaatan-bagi-lingkungan">
+              <div
+                class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+                style="
+                  background-image: url('https://akcdn.detik.net.id/community/media/visual/2024/11/15/pertamina-1.jpeg?w=700&q=90');
+                ">
+                <div
+                  class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+              </div>
+              <div
+                class="relative h-full p-6 flex flex-col justify-start text-white">
+                <h3 class="text-xl font-bold mb-3">Pertamina Eco RunFest Segera
+                  Digelar</h3>
+                <p
+                  class="description text-sm opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                  PT Pertamina (Persero) akan menyelenggarakan Pertamina Eco
+                  RunFest 2024, di Istora Senayan, Jakarta pada pada Minggu, 24
+                  November 2024 mendatang. Ini menjadi ajang lari karbon netral
+                  pertama yang mendukung upaya dekarbonisasi di Indonesia,
+                  dengan tema 'Energizing The Change'.
+                </p>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div
+              class="card"
+              data-url="https://www.detik.com/jabar/berita/d-7533364/ri-masuk-3-besar-negara-penyumbang-sampah-plastik-terbesar-di-dunia">
+              <div
+                class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+                style="
+                  background-image: url('https://akcdn.detik.net.id/community/media/visual/2024/05/11/penumpukan-sampah-di-pantai-cibutun-loji-sukabumi-1_169.jpeg?w=700&q=90');
+                ">
+                <div
+                  class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+              </div>
+              <div
+                class="relative h-full p-6 flex flex-col justify-start text-white">
+                <h3 class="text-xl font-bold mb-3">RI Masuk 3 Besar Negara
+                  Penyumbang Sampah Plastik Terbesar di
+                  Dunia</h3>
+                <p
+                  class="description text-sm opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                  Jumlah sampah padat kota yang dibakar di India setara dengan
+                  empat negara pembakar sampah terbesar berikutnya yaitu
+                  Indonesia, Nigeria, China, dan Rusia," kata Ed Cook, salah
+                  satu peneliti.
+                </p>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+              class="card"
+              data-url="https://finance.detik.com/ekonomi-hijau/d-7532852/hijaukan-desa-besakih-pertamina-tanam-200-pohon-di-kaki-gunung-agung">
+              <div
+                class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+                style="
+                  background-image: url('https://akcdn.detik.net.id/community/media/visual/2024/09/09/pt-pertamina-persero-tanam-200-pohon-di-desa-besakih-yang-terletak-di-kaki-gunung-agung-bali_169.jpeg?w=700&q=90');
+                ">
+                <div
+                  class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+              </div>
+              <div
+                class="relative h-full p-6 flex flex-col justify-start text-white">
+                <h3 class="text-xl font-bold mb-3">Tanam 200 Pohon di Kaki
+                  Gunung Agung</h3>
+                <p
+                  class="description text-sm opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                  Pertamina berkomitmen mendukung ekosistem hijau berbasis
+                  kearifan lokal di Desa Besakih.
+                </p>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div
+              class="card"
+              data-url="https://travel.detik.com/fototravel/d-7548629/migrasi-besar-besaran-gajah-india-sampai-di-new-york-soroti-isu-lingkungan">
+              <div
+                class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+                style="
+                  background-image: url('https://akcdn.detik.net.id/community/media/visual/2024/09/19/migrasi-besar-besaran-gajah-india-sampai-di-new-york-soroti-isu-lingkungan-3_169.jpeg?w=700&q=90');
+                ">
+                <div
+                  class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+              </div>
+              <div
+                class="relative h-full p-6 flex flex-col justify-start text-white">
+                <h3 class="text-xl font-bold mb-3">Migrasi Besar-besaran 'Gajah'
+                  India Sampai di New York</h3>
+                <p
+                  class="description text-sm opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                  Pameran gajah mempromosikan 'hidup lebih baik dengan segala
+                  bentuk alam' telah sampai di New York, AS. Pameran menampilkan
+                  seratusan patung gajah buatan tangan.
+                </p>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div
+              class="card"
+              data-url="https://news.detik.com/foto-news/d-7552241/wow-ada-ular-sampah-raksasa-di-jakarta">
+              <div
+                class="card-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+                style="
+                  background-image: url('https://akcdn.detik.net.id/community/media/visual/2024/09/22/wow-ada-ular-sampah-raksasa-di-jakarta_169.jpeg?w=700&q=90');
+                ">
+                <div
+                  class="card-overlay absolute inset-0 bg-black/50 transition-colors duration-300"></div>
+              </div>
+              <div
+                class="relative h-full p-6 flex flex-col justify-start text-white">
+                <h3 class="text-xl font-bold mb-3">Wow! Ada
+                  'Ular Sampah Raksasa' di Jakarta</h3>
+                <p
+                  class="description text-sm opacity-0 transform translate-y-10 transition-all duration-300 ease-out">
+                  Aksi kampanye lingkungan digelar di Hari Bebas Kendaraan
+                  Bermotor (HBKB) Jakarta, Minggu (22/9/2024). Massa membawa
+                  ular raksasa berbahan sampah.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="topic-navigation">
+            <div class="topic-navigation-container">
+              <div class="all" data-topic="all">All</div>
+              <div class="more-dropdown">
+                More
+                <div class="dropdown-content">
+                  <div data-topic="green_living">green-living</div>
+                  <div data-topic="fashion">Sustainable Fashion</div>
+                  <div data-topic="tech">Tech & Innovation</div>
+                  <div data-topic="garden">Home & Garden</div>
+                  <div data-topic="travel">Eco-Travel</div>
+                </div>
+              </div>
+              <div class="topic-navigation-dekstop">
+                <div data-topic="all">All</div>
+                <div data-topic="green_living">green-living</div>
+                <div data-topic="fashion">Sustainable Fashion</div>
+                <div data-topic="tech">Tech & Innovation</div>
+                <div data-topic="garden">Home & Garden</div>
+                <div data-topic="travel">Eco-Travel</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="news-page" id="content-area">
+            <div class="featured-article">
+              <img
+                height="400"
+                src="https://storage.googleapis.com/a1aa/image/DCLN1AIUU44vKxowen0GVEeaj4Zd0EoSEVv1LMAZ3YvrvQ1TA.jpg"
+                width="800" />
+              <div class="article-category">Interiors</div>
+              <h1>Interior Designer and Maude Interiors by Yvonne Designs</h1>
+              <div>
+                <span class="article-author">Armin Vans</span>
+                <span class="article-date">- August 7, 2019</span>
+              </div>
+              <p>
+                We woke reasonably late following the feast and free flowing
+                wine the night before. After gathering ourselves and our packs,
+                we headed down to...
+              </p>
+            </div>
+            <div class="related-articles">
+              <div class="related-item">
+                <img
+                  height="100"
+                  src="https://storage.googleapis.com/a1aa/image/jJjXgofvwbRcQKdCA2a4NkRIhWGMrBPPvfG04eEeTcXf8FqeE.jpg"
+                  width="100" />
+                <div class="related-item-content">
+                  <h3>
+                    Have a look around this bold and colourful 1930s semi in
+                    London
+                  </h3>
+                  <div class="article-date">August 7, 2019</div>
+                </div>
+              </div>
+              <div class="related-item">
+                <img
+                  height="100"
+                  src="https://storage.googleapis.com/a1aa/image/aGVCdHzfTIRfOkEsCFQLYigpwV6UxUFRAkeQVlKJFNAZfCVPB.jpg"
+                  width="100" />
+                <div class="related-item-content">
+                  <h3>
+                    Outdoor Kitchen Decorating: Furnish and Accessorize with
+                    Flair
+                  </h3>
+                  <div class="article-date">August 7, 2019</div>
+                </div>
+              </div>
+              <div class="related-item">
+                <img
+                  height="100"
+                  src="https://storage.googleapis.com/a1aa/image/lgcNI90ITiq9CRjZ6adJSCPk9iSOuro3gkDfFPcU02flvQ1TA.jpg"
+                  width="100" />
+                <div class="related-item-content">
+                  <h3>
+                    Interior Design Tips: Decorating to Celebrate the Great
+                    Outdoors
+                  </h3>
+                  <div class="article-date">August 7, 2019</div>
+                </div>
+              </div>
+              <div class="related-item">
+                <img
+                  height="100"
+                  src="https://storage.googleapis.com/a1aa/image/vSsiRSzFpE46DpCFsYDW4V7126q9wRhdcth4HtwQwtT6LU9E.jpg"
+                  width="100" />
+                <div class="related-item-content">
+                  <h3>
+                    Citroen Could Revive the Third Car for Loeb/Breen Winning
+                    Couple
+                  </h3>
+                  <div class="article-date">August 7, 2019</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="relative  min-h-screen flex items-center justify-center py-12 mb-[-5px]"
+        style="background-image: url('https://cdn.britannica.com/98/214598-050-9879F2FA/giant-sequoia-tree-Sequoia-National-Park-California.jpg');">
+        <div class="bg-cover bg-center">
+          <!-- Overlay gelap untuk kontras -->
+          <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+
+          <!-- Kontainer Konten Utama -->
+          <div
+            class="relative z-10 max-w-4xl w-full bg-white rounded-lg shadow-lg p-10">
+            <h1
+              class="text-4xl font-bold text-center text-green-800 mb-6">Support
+              the Green Trees Initiative</h1>
+            <p class="text-center text-gray-600 mb-8">
+              Your contribution can help us save the planet and plant more
+              trees.
+              Select an amount to make a difference.
+            </p>
+
+            <!-- Form Donasi -->
+            <form class="space-y-6">
+              <!-- Pilihan Donasi -->
+              <div class="grid grid-cols-3 gap-4">
+                <label
+                  class="flex flex-col items-center bg-green-50 border border-green-200 rounded-lg p-6 hover:bg-green-100 cursor-pointer">
+                  <span class="text-2xl font-bold text-green-700">$10</span>
+                  <input type="radio" name="donation"
+                    class="mt-4 form-radio text-green-600">
+                </label>
+                <label
+                  class="flex flex-col items-center bg-green-50 border border-green-200 rounded-lg p-6 hover:bg-green-100 cursor-pointer">
+                  <span class="text-2xl font-bold text-green-700">$25</span>
+                  <input type="radio" name="donation"
+                    class="mt-4 form-radio text-green-600">
+                </label>
+                <label
+                  class="flex flex-col items-center bg-green-50 border border-green-200 rounded-lg p-6 hover:bg-green-100 cursor-pointer">
+                  <span class="text-2xl font-bold text-green-700">$50</span>
+                  <input type="radio" name="donation"
+                    class="mt-4 form-radio text-green-600">
+                </label>
+              </div>
+
+              <!-- Input Kustom -->
+              <input type="number" placeholder="Enter custom amount"
+                class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 text-gray-700"
+                min="1" step="1">
+
+              <!-- Pilihan Frekuensi Donasi -->
+              <div class="text-center">
+                <h2 class="text-xl font-semibold text-green-800 mb-4">Choose
+                  Donation Frequency</h2>
+                <div class="flex justify-center space-x-6">
+                  <label class="flex items-center space-x-3">
+                    <input type="radio" name="frequency"
+                      class="form-radio h-5 w-5 text-green-600">
+                    <span class="text-lg text-gray-700">Monthly</span>
+                  </label>
+                  <label class="flex items-center space-x-3">
+                    <input type="radio" name="frequency"
+                      class="form-radio h-5 w-5 text-green-600">
+                    <span class="text-lg text-gray-700">One Time</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Tombol Checkout -->
+              <div class="text-center">
+                <button type="submit"
+                  class="w-full bg-green-600 text-white font-semibold py-4 rounded-lg hover:bg-green-700 transition">
+                  Go to Checkout
+                </button>
+                <a href="#"
+                  class="block mt-4 text-gray-500 hover:underline">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="footer-section" id="contact">
+        <div class="footer">
+          <div class="left-content">
+            <h1 class="left-content-title">
+              We would love to <br />hear from you.
+            </h1>
+            <p class="left-content-text">
+              Feel free to reach out, or simply have a chat
+            </p>
+            <div class="form-container">
+              <form>
+                <label for="name"></label>
+                <input type="text" id="name" name="name" placeholder="Name" />
+
+                <label for="email"></label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email" />
+
+                <label for="message"></label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Message"></textarea>
+
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+            <p class="left-content-text">
+              Don't like the forms? Drop us a line via email.
+            </p>
+            <p class="left-content-text">
+              <a href="mailto:info@awsmd.com"
+                class="info-section-link">info@greenpath.com</a>
+            </p>
+          </div>
+
+          <div class="info-section-container">
+            <!-- Contact Info -->
+            <div class="info-section">
+              <h3 class="info-section-title">Contact us</h3>
+              <p class="info-section-text2">Our Email:</p>
+              <p class="info-section-text">
+                <a href="mailto:info@awsmd.com"
+                  class="info-section-link">info@greenpath.com</a>
+              </p>
+              <p class="info-section-text2">Our Phone:</p>
+              <p class="info-section-text">+62 822-4516-6455</p>
+              <p class="info-section-text2">Our Address:</p>
+              <p class="info-section-text">
+                Babatan, Wiyung<br />
+                Surabaya, East Java<br />
+                60227<br />
+                21st Floor
+              </p>
+            </div>
+
+            <!-- Social Media -->
+            <div class="info-section">
+              <h3 class="info-section-title">Connect with Us</h3>
+              <p class="info-section-text">
+                <a href="#" class="info-section-link">
+                  <i class="bi bi-twitter-x"></i> Follow our Twitter-X
+                </a>
+              </p>
+              <p class="info-section-text">
+                <a href="#" class="info-section-link">
+                  <i class="bi bi-instagram"></i> Find us on Instagram
+                </a>
+              </p>
+              <p class="info-section-text">
+                <a href="#" class="info-section-link">
+                  <i class="bi bi-facebook"></i> Join our Facebook Group
+                </a>
+              </p>
+              <p class="info-section-text">
+                <a href="#" class="info-section-link">
+                  <i class="bi bi-youtube"></i> Subscribe to our channel
+                </a>
+              </p>
+            </div>
+
+            <!-- Services -->
+            <div class="info-section">
+              <h3 class="info-section-title">Our Services</h3>
+              <p class="info-section-text">
+                <a href="#monitor" class="info-section-link">· Environmental
+                  Data Tracking</a>
+              </p>
+              <p class="info-section-text">
+                <a href="#product" class="info-section-link">· Eco-Friendly
+                  Product</a>
+              </p>
+              <p class="info-section-text">
+                <a href="#news" class="info-section-link">· Environmental
+                  News</a>
+              </p>
+              <p class="info-section-text">
+                <a href="#contribute" class="info-section-link">· Donation and
+                  Volunteering</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Top -->
+        <div class="back-to-top">
+          <a href="#" class="back-to-top-link">
+            Back to the top <i class="bi bi-arrow-up-short"></i>
+          </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="copyright">
+          <p>
+            © GreenPath 2024. All rights reserved •
+            <a href="#" class="footer-link">Privacy Policy</a>
+          </p>
+        </div>
+      </section>
+    </div>
+    <script src="js.js"></script>
+  </body>
+</html>
